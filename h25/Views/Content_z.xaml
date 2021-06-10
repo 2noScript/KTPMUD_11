@@ -1,0 +1,420 @@
+﻿<UserControl x:Class="h25.Views.Content_z"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Name="content_z"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"  
+             DataContext="{StaticResource vmcontent_z}"
+             xmlns:local="clr-namespace:h25.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <materialDesign:Card>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Background="#FFE2EAE9">
+                <StackPanel.Resources>
+                    <ControlTemplate TargetType="Button" x:Key="c">
+                        <Border  Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                    <Style TargetType="Button">
+                        <Setter Property="Template" Value="{StaticResource c}"/>
+                        <Setter Property="Height" Value="60"/>
+                        <Setter Property="Width" Value="70"/>
+                        <!--<Setter Property="BorderThickness" Value="0"/>-->
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Violet"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Label Content="MENU" Height="35"                      
+                       VerticalContentAlignment="Center"
+                       HorizontalAlignment="Center"/>
+                <Button Name="btn1">
+                    <Border>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/rice.png" Width="30"/>
+                            <TextBlock Text="Món mặn" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[0]}" 
+                                   CommandParameter="{Binding ElementName=btn1}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn1}"/>
+                            <i:InvokeCommandAction Command="{Binding slectContentListItem}" 
+                                                   CommandParameter="{Binding ElementName=btn1}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Name="btn2" >
+                    <Border>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/fast_food.png" Width="30"/>
+                            <TextBlock Text="Món ngọt" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[1]}" 
+                                   CommandParameter="{Binding ElementName=btn2}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn2}"/>
+                            <i:InvokeCommandAction Command="{Binding slectContentListItem}" 
+                                                   CommandParameter="{Binding ElementName=btn2}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Name="btn3">
+                    <Border>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/drink.png" Width="30"/>
+                            <TextBlock Text="Đồ uống" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[2]}" 
+                                   CommandParameter="{Binding ElementName=btn3}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn3}"/>
+                            <i:InvokeCommandAction Command="{Binding slectContentListItem}" 
+                                                   CommandParameter="{Binding ElementName=btn3}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Visibility="{Binding IsHide_z}" Name="btn4">
+                    <Border>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/food.png" Width="30"/>
+                            <TextBlock Text="giỏ" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[3]}" 
+                                   CommandParameter="{Binding ElementName=btn4}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn4}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Visibility="{Binding IsHide_z}" Name="btn5" Background="#FF7866C2">
+                    <Border>
+                        <StackPanel Orientation="Vertical">
+                            <Image Source="/Images/notification.png" Width="30"/>
+                            <TextBlock Text="giỏ" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[4]}" 
+                                   CommandParameter="{Binding ElementName=btn5}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn5}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Visibility="{Binding IsHide}" Name="btn6">
+                    <Border>
+                        <StackPanel>
+                            <Image Source="/Images/chat.png" Width="30"/>
+                            <TextBlock Text="Thông báo" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[5]}" 
+                                   CommandParameter="{Binding ElementName=btn6}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn6}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Visibility="{Binding IsHide}" Name="btn7">
+                    <Border>
+                        <StackPanel>
+                            <Image Source="/Images/stats.png" Width="30"/>
+                            <TextBlock Text="Chart" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[6]}" 
+                                   CommandParameter="{Binding ElementName=btn7}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn7}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Visibility="{Binding IsHide}" Name="btn8">
+                    <Border>
+                        <StackPanel>
+                            <Image Source="/Images/add.png" Width="30"/>
+                            <TextBlock Text="add" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[7]}" 
+                                   CommandParameter="{Binding ElementName=btn8}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn8}"/>
+                            <i:InvokeCommandAction Command="{Binding openAdd}" 
+                                                   />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Visibility="{Binding IsHide}" Name="btn9">
+                    <Border>
+                        <StackPanel>
+                            <Image Source="/Images/person.png" Width="30"/>
+                            <TextBlock Text="admin" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding listIsLoad[8]}" 
+                                   CommandParameter="{Binding ElementName=btn9}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding checkz}" 
+                                                   CommandParameter="{Binding ElementName=btn9}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+
+            <!--_______________________________________________________-->
+            <Grid Grid.Column="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Background="#FFEAE2E2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                        <StackPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Width" Value="40"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="#FFEAE2E2"/>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button>
+                            <Button.Background>
+                                <ImageBrush ImageSource="/images/search.png"/>
+                            </Button.Background>
+                        </Button>
+                        <TextBox Name="o"
+                                 MinWidth="400" 
+                                                               
+                                 MinHeight="35"
+                                 FontSize="16"
+                                 FontStretch="ExtraCondensed"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"                                 
+                                 materialDesign:HintAssist.Hint="       Tìm Kiếm" 
+                                 Background="#FFEAE2E2">
+                            <!--<TextBox.InputBindings>
+                                <KeyBinding Command="{Binding isSearchOfNamez}" Key="Enter" 
+                                            />
+                                
+                            </TextBox.InputBindings>-->
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding isSearchOfNamez}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <ComboBox materialDesign:HintAssist.Hint="Giá "
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  Width="100"
+                                  Margin="10 0 0 -10">
+                            <ComboBoxItem>
+                                Android
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                iOS
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                Linux
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                Windows
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+                <!--_______________Show sp____________________-->
+                <Grid Grid.Row="1" Background="AliceBlue" >
+                    <ListBox x:Name="content_lbox"
+                             
+                             ItemsSource="{Binding listItem}" >
+                        <i:Interaction.Triggers>
+                            <!--<i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding openItem}"/>
+                            </i:EventTrigger>-->
+                        </i:Interaction.Triggers>
+                        
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" 
+                                               Margin="0"
+                                               HorizontalAlignment="Center"
+                                               ItemHeight="300"
+                                               ItemWidth="212">
+                                </WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate >
+                                <materialDesign:Card Width="200"                                                     
+                                                     Height="290"                                                         
+                                                         HorizontalContentAlignment="Center"
+                                                         >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick" >
+                                            <i:InvokeCommandAction
+                                                
+                                                      Command="{Binding openItem,Source={StaticResource vmcontent_z}}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <Grid >
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <!--<Grid Grid.Row="0" DataContext="{StaticResource vmcontent_z}">
+                                            
+                                        </Grid>-->
+                                        <StackPanel Grid.Row="0" >
+                                            <Grid >
+                                                <Image  Margin="-2 -5 0 0"                                                      
+                                                  Source="{ Binding pathImage}"
+                                                  Height="198"
+                                                  Width="198"
+                                                  Stretch="UniformToFill" >                                               
+                                                </Image>
+                                                <StackPanel Margin="0 60 -10 -90 "
+                                                    Orientation="Horizontal" Height="30" 
+                                                            HorizontalAlignment="Right">
+                                                    <StackPanel.Resources>
+                                                        <Style TargetType="Label">
+                                                            <Setter Property="Background" Value="#FFC579D6"/>
+                                                            <Setter Property="FontSize" Value="10"/>
+                                                            <Setter Property="FontWeight" Value="Bold"/>
+                                                            <Setter Property="Template" Value="{DynamicResource labeltemplate}"/>
+                                                        </Style>
+                                                        <ControlTemplate TargetType="Label" x:Key="labeltemplate">
+                                                            <Border 
+                                                                CornerRadius="17"
+                                                                
+                                                                Background="{TemplateBinding Background}">
+                                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </StackPanel.Resources>
+                                                    <Image Source="/Images/coupon.png" />
+                                                    <Label Content="{Binding sale}" Width="35"
+                                                           Height="35"                                                                                                                                                                        
+                                                           Margin="0 -5 18 0" >
+                                                    </Label>
+                                                </StackPanel>
+
+                                            </Grid>
+                                        </StackPanel>
+                                        <materialDesign:ColorZone Mode="PrimaryMid" Height="10" Grid.Row="1"/>
+                                        <Grid Grid.Row="2" Background="#FF472F5D">
+                                            <Grid.Resources>
+                                                <ControlTemplate TargetType="Label" x:Key="labeltemplate">
+                                                    <Border Background="{TemplateBinding Background}" 
+                                                            CornerRadius="0 15 15 0">
+                                                        <ContentPresenter HorizontalAlignment="Center"
+                                                                          VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                                <Style TargetType="Label">
+                                                    <Setter Property="Template" Value="{StaticResource labeltemplate}"/>
+                                                    <Setter Property="Height" Value="30"/>
+                                                    <Setter Property="FontStretch" Value="Expanded"/>
+                                                    <Setter Property="FontWeight" Value="DemiBold"/>
+                                                    <!--<Setter Property="Width" Value="150"/>-->
+                                                    <Setter Property="Background" Value="#FFDFD4E5"/>
+                                                </Style>
+
+                                            </Grid.Resources>
+                                            <Label Content="{Binding namez}"
+                                                   Name="namesp"
+                                                   Width="150"
+                                                   Margin="0 10 0 0"
+                                                   VerticalAlignment="Top"
+                                                   HorizontalAlignment="Left">
+
+                                            </Label>
+                                            <Label Content="{Binding price}"
+                                                   Name="price"
+                                                  Width="180"
+                                                   Margin="0 10 0 10"
+                                                   VerticalAlignment="Bottom"
+                                                   HorizontalAlignment="Left">
+
+                                            </Label>
+
+                                        </Grid>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
+            <!--<ContentControl 
+                Grid.Column="1"
+                x:Name="adminContent">
+                
+            </ContentControl>-->
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:ViewModel="clr-namespace:h25.ViewModels"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ViewModel:VMmain x:Key="vmmain"/>
+    <ViewModel:VMlogin x:Key="vmlogin"/>
+    <ViewModel:VMcontent_z x:Key="vmcontent_z"/>
+    <ViewModel:VMadd x:Key="vmadd"/>
+    <ViewModel:VMitemz x:Key="vmitemz"/>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

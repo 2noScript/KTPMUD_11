@@ -1,0 +1,492 @@
+﻿<Window x:Class="h25.Views.Add"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"   
+        xmlns:local="clr-namespace:h25.Views"
+        DataContext="{StaticResource vmadd}"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Name="add"        
+        WindowStartupLocation="CenterScreen"
+        Title="add" Height="700" Width="900">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <!--<i:InvokeCommandAction Command="{Binding closeConenction}"></i:InvokeCommandAction>-->
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding isLoad1}"
+                                   CommandParameter="{Binding  ElementName=imageDisplay}" />
+            <i:InvokeCommandAction Command="{Binding isLoad2}"
+                                   CommandParameter="{Binding  ElementName=imageCreate}" />
+            <i:InvokeCommandAction Command="{Binding isLoad3}"
+                                   CommandParameter="{Binding ElementName=comboBoxCheck}"
+                                    />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="stylerbtn">
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Background" Value="#FF7A81CE"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" Value="Yellow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <Grid Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Background="#FF7A81CE">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding btn.isWinDragMove}" 
+                                                   CommandParameter="{Binding ElementName=add}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Grid>
+                <Button 
+                    Grid.Column="1"                   
+                x:Name="close"
+                Style="{DynamicResource stylerbtn}"
+                    Command="{Binding btn.close}"
+                    CommandParameter="{Binding ElementName=close}"
+                    Height="35"
+                    Width="35"
+                    HorizontalAlignment="Right">
+                    <materialDesign:PackIcon Kind="WindowClose" />
+                </Button>
+
+            </Grid>
+        </Grid>
+        <materialDesign:Card Grid.Row="1" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="350"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <StackPanel>
+                            <Image   
+                               Source="{Binding itemDisplay.pathImage}"
+                               VerticalAlignment="Top"
+                               Margin="10 10 0 0"
+                               Height="200"
+                                   Width="200"
+                               Name="imageDisplay"/>
+                            <TextBlock Text="Sản Phẩm đang được chọn"                                       
+                                       FontSize="14"
+                                       Margin="20 10 0 0 "
+                                       FontWeight="DemiBold"
+                                      />
+                            <StackPanel 
+                                Margin="10 15 0 0"
+                                Orientation="Horizontal">
+                                <TextBlock  Text="ID : " 
+                                           Margin="10 0 0 0"
+                                           FontWeight="DemiBold"/>
+                                <TextBlock  Text="{Binding itemDisplay.id}"                                            
+                                            FontWeight="DemiBold"
+                                            />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"  Margin="10 5 0 0">
+                                <TextBlock  Text="Tên  : " 
+                                           Margin="10 0 0 0"
+                                           FontWeight="DemiBold"/>
+                                <TextBlock  Text="{Binding itemDisplay.namez}" 
+                                            FontWeight="DemiBold"
+                                            />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="10 5 0 0">
+                                <TextBlock  Text="Giá(vnđ) : " 
+                                           Margin="10 0 0 0"
+                                           FontWeight="DemiBold"/>
+                                <TextBlock  Text="{Binding itemDisplay.price}" 
+                                            FontWeight="DemiBold"
+                                            />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="10 5 0 0">
+                                <TextBlock  Text="Giảm giá (%) : " 
+                                           Margin="10 0 0 0"
+                                           FontWeight="DemiBold"/>
+                                <TextBlock  Text="{Binding itemDisplay.sale}" 
+                                            FontWeight="DemiBold"
+                                            />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <materialDesign:DrawerHost Grid.Row="1" Width="650"
+                                                   Background="Aqua"
+                                                   HorizontalAlignment="Right">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <ComboBox 
+                                        Name="comboBoxCheck"
+                                        Width="138"
+                                        Margin="31 30 0 0"
+                                        HorizontalAlignment="Left">
+                                        <ComboBoxItem Content="Đồ mặn" IsSelected="True" >
+                                        </ComboBoxItem>
+                                        <ComboBoxItem Content="Đồ ngọt">
+                                        </ComboBoxItem>
+                                        <ComboBoxItem Content="Đồ uống" >
+                                        </ComboBoxItem>
+
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding selectF}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                    <TextBox
+                                        Text="{Binding SearchItem,UpdateSourceTrigger=PropertyChanged}"
+                                        Width="200"
+                                        Margin="20 13.5 0 0"
+                                        Height="40"
+                                          materialDesign:HintAssist.Hint="Tìm kiếm"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding isSearchOfNamez}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    
+                                        <Button Style="{DynamicResource stylerbtn}"
+                                            Height="30"
+                                            Width="100"
+                                            Margin="10 22 0 0"
+                                            Content="Tìm kiếm"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10 14 0 0">
+                                    <Button Style="{DynamicResource stylerbtn}"
+                                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                                            CommandParameter="{x:Static Dock.Right}"
+                                            Margin="20 0 0 0"
+                                            Width="140"
+                                            Content="Thêm sản phẩm mới">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding OpenCreateItem}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                    <Button Style="{DynamicResource stylerbtn}"
+                                            Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}"
+                                            CommandParameter="{x:Static Dock.Top}"
+                                            Margin="20 0 0 0"
+                                            Width="140"
+                                            Content="Chỉnh sử sản Phẩm"/>
+                                    <Button Style="{DynamicResource stylerbtn}"
+                                            Command="{Binding itemDelete}"                             
+                                            Margin="20 0 0 0"
+                                            Width="140"
+                                            Content="Xóa"/>
+                                </StackPanel>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="414*"/>
+                                        <ColumnDefinition Width="235*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Margin="30,10,-0.4,-0.2"
+                                        FontWeight="DemiBold"
+                                        FontSize="16"
+                                        Text="Thông tin sản phẩm" Grid.ColumnSpan="2"/>
+                                    <TextBlock 
+                                        Text="{Binding itemDisplay.information}"
+                                        HorizontalAlignment="Left"
+                                        Margin="30,34,0,14.8"
+                                        FontSize="14"
+                                        FontWeight="DemiBold"
+                                        Width="550"
+                                        Height="200"
+                                        TextWrapping="Wrap"
+                                        Background="Beige"
+                                        Style="{StaticResource  MaterialDesignTextBlock}" Grid.ColumnSpan="2">
+                                    </TextBlock>
+                                </Grid>
+                            </Grid>
+                            <!--Thêm sản phẩm mới-->
+                            <materialDesign:DrawerHost.RightDrawerContent>
+                                <Grid Width="650" Name="NewSp">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Button Content="back"                                           
+                                            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                                            CommandParameter="{x:Static Dock.Right}"
+                                            Style="{DynamicResource stylerbtn}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding closeOpenCreateItem}">
+                                                </i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                        </Grid>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0" Margin="15 0 0 0" >
+                                                <TextBox                                                                                                   
+                                                  Margin="0 5 0 0"
+                                                    Text="{Binding newItemz.namez,UpdateSourceTrigger=PropertyChanged}"
+                                                  Width="350"
+                                                 FontSize="13"
+                                                  materialDesign:HintAssist.Hint="Tên sản Phẩm"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                                <TextBox
+                                                    Text="{Binding newItemz.price}"
+                                                  Margin="0 5 0 0"
+                                                Width="350"
+                                                 FontSize="13"
+                                                  materialDesign:HintAssist.Hint="Giá tiền (VNĐ)"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                                <TextBox
+                                                   Text="{Binding newItemz.sale}"
+                                                  Margin="0 5 0 0"
+                                                Width="350"
+                                                 FontSize="13"
+                                                  materialDesign:HintAssist.Hint="Giảm Giá (%)"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                                <TextBox
+                                                    Text="{Binding newItemz.information}"
+                                                       Width="350"
+                                                        Style="{StaticResource  MaterialDesignFilledTextBox}"
+                                                        Margin="0 5 0 0"                                                        
+                                                        Height="100"
+                                                        AcceptsReturn="True"
+                                                        TextWrapping="Wrap"
+                                                        VerticalScrollBarVisibility="Auto"
+                                                        materialDesign:HintAssist.Hint="Thông tin sản phẩm"
+                                                       />
+                                                <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
+                                                    <Button Style="{DynamicResource stylerbtn}"
+                                                     Margin="0 5 0 0"
+                                                    Height="30" 
+                                                            Command="{Binding openDialogImage}"
+                                                    Content="Chọn ảnh" Width="160"/>
+                                                    <Button Style="{DynamicResource stylerbtn}"
+                                                     Command="{Binding createItem}"     
+                                                     Margin="30 5 0 0"
+                                                    Height="30"
+                                                    Content="Thêm" Width="160"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Grid Grid.Column="1">
+                                                <Image                                    
+                                                       Name="imageCreate"
+                                                       Source="{Binding newItemz.pathImage}"
+                                                       HorizontalAlignment="Center"
+                                                       Margin="0 10 0 0"
+                                                       VerticalAlignment="Top"
+                                                   Height="160" Width="160"/>
+                                                <TextBlock                                                    
+                                                    VerticalAlignment="Bottom"
+                                                     Width="200"
+                                                    HorizontalAlignment="Center"
+                                                    Margin="20 0 -10 40"
+                                                    Height="80"
+                                                    Foreground="Red"
+                                                    FontWeight="DemiBold"
+                                                    TextWrapping="Wrap"
+                                                    Text="{Binding warning}">
+                                                </TextBlock>
+
+                                            </Grid>
+
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:DrawerHost.RightDrawerContent>
+                            <!--chỉnh sử sản phẩm-->
+                            <materialDesign:DrawerHost.TopDrawerContent>
+                                <Grid Width="650" Height="350" x:Name="editSp">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Button Content="back" 
+                                            Grid.Row="0"
+                                              Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                                            CommandParameter="{x:Static Dock.Top}"
+                                            Style="{DynamicResource stylerbtn}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <i:InvokeCommandAction Command="{Binding closeOpenEditItem}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                    <Grid Grid.Row="1">
+                                        <StackPanel>
+                                            <TextBox 
+                                                Text="{Binding itemDisplay.namez}"
+                                                  Margin="0 5 0 0"
+                                                Width="300"
+                                                 FontSize="13"
+                                                  materialDesign:HintAssist.Hint="Tên sản Phẩm"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                            <TextBox
+                                                Text="{Binding itemDisplay.price}"
+                                                  Margin="0 5 0 0"
+                                                Width="300"
+                                                 FontSize="13"
+                                                  materialDesign:HintAssist.Hint="Giá tiền (VNĐ)"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                            <TextBox
+                                                Text="{Binding itemDisplay.sale}"
+                                                  Margin="0 5 0 0"
+                                                Width="300"
+                                                 FontSize="13"
+                                                  materialDesign:HintAssist.Hint="Giảm Giá (%)"
+                                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                                            <TextBox
+                                                        Text="{Binding itemDisplay.information}"
+                                                        Width="300"
+                                                        Style="{StaticResource  MaterialDesignFilledTextBox}"
+                                                        Margin="0 5 0 0"                                                        
+                                                        Height="90"
+                                                        AcceptsReturn="True"
+                                                        TextWrapping="Wrap"
+                                                        VerticalScrollBarVisibility="Auto"
+                                                        materialDesign:HintAssist.Hint="Thôn tin sản phẩm"
+                                                       />
+                                            <StackPanel Orientation="Horizontal" 
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0 10 0 0">
+                                                <Button Style="{DynamicResource stylerbtn}"
+                                                        Command="{Binding OpenDialogEditImage}"
+                                                     Margin="0 0 0 0"
+                                                    Height="30"
+                                                    Content="Chọn ảnh mới" Width="140"/>
+                                                <Button Style="{DynamicResource stylerbtn}"
+                                                        Command="{Binding UpdateEditItem}"
+                                                     Margin="20 0 0 0"
+                                                    Height="30"
+                                                    Content="cập nhật" Width="140"/>
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding warning}"
+                                                       FontWeight="DemiBold"
+                                                       Margin="0 8 0 0"
+                                                       VerticalAlignment="Center"
+                                                       
+                                                       TextWrapping="Wrap"
+                                                       Foreground="Red"
+                                                       Width="280"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:DrawerHost.TopDrawerContent>
+                        </materialDesign:DrawerHost>
+                    </Grid>
+                </Grid>
+                <!--danh sách của sản phẩm-->
+                <Grid Grid.Row="1" Margin="0 10 0 0" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Row="0" >
+                        <TextBlock Text="ID"
+                                   Margin="15 0 0 0"
+                                   FontWeight="DemiBold"
+                                   Width="80"/>
+                        <TextBlock Text="Tên sản Phẩm "  
+                                   Margin="-5 0 0 0"
+                                   FontWeight="DemiBold"
+                                   Width="280"/>
+                        <TextBlock Text="Giá (VNĐ)"
+                                   Margin="5 0 0 0"
+                                   FontWeight="DemiBold"
+                                   Width="90"/>
+                        <TextBlock Text="Thời gian thêm"
+                                    Margin="30 0 0 0"
+                                   FontWeight="DemiBold"
+                                   Width="120"/>
+                        <TextBlock Text="Thời gian sửa"
+                                   Margin="38 0 0 0"
+                                   FontWeight="DemiBold"
+                                   Width="120"/>
+                    </StackPanel>
+                    <!--danh sách món ăn-->
+                    <Grid Grid.Row="1">
+                        <ListView                             
+                            x:Name="listItemz"
+                           ItemsSource="{Binding items}"
+                          Width="900"
+                          HorizontalAlignment="Left">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding selectItem}" 
+                                                           CommandParameter="{Binding ElementName=listItemz}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ListView.Resources>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                    <Setter Property="OverridesDefaultStyle" Value="True" />
+                                    <!--<Setter Property="BorderThickness" Value="0"/>-->
+                                </Style>
+                            </ListView.Resources>
+                            <ListView.View >
+                                <GridView >
+                                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding id}" Width="80"/>
+                                    <GridViewColumn Header="Tên sản phẩm " Width="280"                                           
+                                            DisplayMemberBinding="{Binding namez}"/>
+                                    <GridViewColumn Header="Giá Tiền " Width="120"                                                  
+                                            DisplayMemberBinding="{Binding price}"/>
+                                    <GridViewColumn Header="Thời gian thêm " Width="160" 
+                                            DisplayMemberBinding="{Binding timeLine}"/>
+                                    <GridViewColumn Header="Thời gian sửa " Width="160" 
+                                            DisplayMemberBinding="{Binding repaiTime}"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+        </materialDesign:Card>
+
+
+    </Grid>
+</Window>
