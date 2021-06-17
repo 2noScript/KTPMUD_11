@@ -7,10 +7,12 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              DataContext="{DynamicResource vmmain}"
              xmlns:local="clr-namespace:h25.Views"
-             
+            
+            
              Name="uc"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="MouseLeftButtonDown">
             <i:InvokeCommandAction Command="{Binding btn.dragMove}"
@@ -37,7 +39,7 @@
                 Grid.Column="1">
             <StackPanel.Resources >
                 <Style TargetType="Button">
-                    <Setter Property="Template" Value="{DynamicResource btno}"/>
+                    <Setter Property="Template" Value="{DynamicResource templateBtn}"/>
                     <Setter Property="Background" Value="#FF7A81CE"/>
                     <Setter Property="Cursor" Value="Hand"/>
                     <Setter Property="Margin" Value="0"/>
@@ -49,7 +51,7 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-                <ControlTemplate x:Key="btno" TargetType="Button">
+                <ControlTemplate x:Key="templateBtn" TargetType="Button">
                     <Border                           
                             Width="38" 
                             BorderThickness="0"
@@ -61,25 +63,25 @@
                     </Border>
                 </ControlTemplate>
             </StackPanel.Resources>
-            <Button Command="{Binding openSetting}">
+            <Button Command="{Binding OpenSetting}">
                
                 <materialDesign:PackIcon Kind="Settings"                                        
                                                  Width="30" Height="30"/>
             </Button>
             <Button Command="{Binding btn.minsize}"
                     
-                        x:Name="btn1"
-                        CommandParameter="{Binding ElementName=btn1}">
+                        x:Name="minsize"
+                        CommandParameter="{Binding ElementName=minsize}">
                 <materialDesign:PackIcon Kind="WindowMinimize"/>
             </Button>
             <Button Command="{Binding btn.maxsize}" 
-                        Name="btn2"
-                        CommandParameter="{Binding ElementName=btn2}">
+                        Name="Maxsize"
+                        CommandParameter="{Binding ElementName=Maxsize}">
                 <materialDesign:PackIcon Kind="WindowMaximize" />
             </Button>
             <Button Command="{Binding btn.close}"
-                        Name="btn3"
-                        CommandParameter="{Binding ElementName=btn3}">
+                        Name="Close"
+                        CommandParameter="{Binding ElementName=Close}">
                 <materialDesign:PackIcon Kind="Close" />
             </Button>
         </StackPanel>

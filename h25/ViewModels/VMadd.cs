@@ -15,34 +15,36 @@ namespace h25.ViewModels
 {
     class VMadd : BaseViewModel
     {
-
         public btn btn { get; set; }
-        public ICommand isLoad1 { get; set; }
-        public ICommand isLoad2 { get; set; }
-        public ICommand isLoad3 { get; set; }
-        public ICommand createItem { get; set; }
-        public ICommand closeOpenCreateItem { get; set; }
+        public ICommand DeletePathImageItem { get; set; }
+        //public ICommand isLoad2 { get; set; }
+        public ICommand GetComboBox { get; set; }
+        public ICommand CommandCreateItem { get; set; }
+        public ICommand CloseViewCreateItem { get; set; }
         public ICommand OpenCreateItem { get; set; }
-        public ICommand openDialogImage { get; set; }
-        public ICommand OpenDialogEditImage { get; set; }
-        public ICommand closeOpenEditItem { get; set; }
-        public ICommand UpdateEditItem { get; set; }
-        public ICommand selectItem { get; set; }
-        public ICommand itemDelete { get; set; }
-        public ICommand selectF { get; set; }
-        public ICommand isSearchOfNamez { get; set; }
+        public ICommand OpenDialogImageCreateItem { get; set; }
+        public ICommand OpenDialogImageEditItem { get; set; }
+
+        public ICommand UpdateDataOfEditItem { get; set; }
+        public ICommand SelectItem { get; set; }
+        public ICommand DeleteOneItem { get; set; }
+        public ICommand SelectDispalayListItem { get; set; }
+        public ICommand SearchOfNameItem { get; set; }
+        public ICommand LoadDefaultListItem { get; set; }
         public Itemz itemDisplay { get; set; }
 
         public string warning { get; set; }
         public string SearchItem { get; set; }
-        public ObservableCollection<Itemz> items { get; set; }
+        public ObservableCollection<Itemz> ListItem { get; set; }
         public Itemz newItemz { get; set; }
-        string str = @"server=127.0.0.1;database=gamoet1;user id=root;password=22022000;port=3306";
-        private Image imageDisplay;
-        private Image imageCreate;
-        private ComboBox comboBoxCheck;
-
-        // MySqlConnection connection;
+        string str = @"server=127.0.0.1;database=gamo;user id=root;password=22022000;port=3306";
+        private string diuz;
+        private ComboBox TypeOfItem;
+        private string AdminName;
+        enum TypeDIU
+        {
+            Delete, Insert, Update
+        }
         public VMadd()
         {
 
@@ -52,183 +54,189 @@ namespace h25.ViewModels
         }
         void InitializeComponent()
         {
-            str = VMmain.connectionString;
+            // str = VMmain.connectionString;
+            AdminName = "gamoet1";
             btn = new btn();
             newItemz = new Itemz();// khởi tạo đầu tiên
             itemDisplay = new Itemz();
             {
-                items = new ObservableCollection<Itemz>();
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(items);
+                ListItem = new ObservableCollection<Itemz>();
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListItem);
                 view.Filter = UserFilter;
             }
-            
-            isLoad1 = new RelayCommand<Image>(p => { return true; }, p => { imageDisplay = p; DeleteFilePathImage("pathImageRemove", str); });
-            isLoad2 = new RelayCommand<Image>(p => { return true; }, p => { imageCreate = p;  });
 
-            isLoad3 = new RelayCommand<object>(p => { return true; }, p =>
+            DeletePathImageItem = new RelayCommand<object>(p => { return true; }, p => { DeleteFilePathImage(AdminName, TableName.historyOfData, TypeDIU.Delete, str); });
+            OpenCreateItem = new RelayCommand<object>(p => { return true; }, p => { warning = "";OnPropertyChanged("warning"); });
+            LoadDefaultListItem = new RelayCommand<object>(p => { return true; }, p => { UpdateListItem(AdminName, TableName.Saltyfood, str); DefaultDisplayItems(); });
+            GetComboBox = new RelayCommand<object>(p => { return true; }, p =>
             {
-                comboBoxCheck = p as ComboBox;
-                UpdateData("saltyfood", str); // mặc đinh load đồ ăn mặn
+                TypeOfItem = p as ComboBox;
+                //UpdateDataListItem("saltyfood", str); // mặc đinh load đồ ăn mặn
 
             });
-            isSearchOfNamez= new RelayCommand<object>(p => { return true; }, p => {
-                CollectionViewSource.GetDefaultView(items).Refresh();
-            });
-            selectItem = new RelayCommand<ListView>(p => { return true; }, p =>
+            SearchOfNameItem = new RelayCommand<object>(p => { return true; }, p => { CollectionViewSource.GetDefaultView(ListItem).Refresh(); });
+            SelectItem = new RelayCommand<ListView>(p => { return true; }, p =>
             {
                 if (p.SelectedItem != null)
                 {
-                    LoadDisplayItem(p.SelectedItem as Itemz);
+                    DisplayItems(p.SelectedItem as Itemz);
                 }
             });
-            createItem = new RelayCommand<object>(p => { return true; }, p =>
-            {
 
-                if (comboBoxCheck.SelectedIndex == 0)
-                {
-                    CreateData("saltyfood", str);
-                }
-                else if (comboBoxCheck.SelectedIndex == 1)
-                {
-                    CreateData("desserts", str);
-                }
-                else if (comboBoxCheck.SelectedIndex == 2)
-                {
-                    CreateData("drink", str);
-                }
-                // CreateData("drink", str); 
-            });
-            OpenCreateItem = new RelayCommand<object>(p => { return true; }, p => { });
-            closeOpenCreateItem = new RelayCommand<object>(p => { return true; }, p =>
-            {
-                newItemz.id = newItemz.namez = newItemz.price = newItemz.sale
-                 = newItemz.information = newItemz.timeLine = newItemz.repaiTime = newItemz.pathImage = null;
-                OnPropertyChanged("newItemz");
-            });
-            closeOpenEditItem= new RelayCommand<object>(p => { return true; }, p => {
-                if (comboBoxCheck.SelectedIndex == 0)
-                {
-                    UpdateData("saltyfood", str);
-                }
-                else if (comboBoxCheck.SelectedIndex == 1)
-                {
-
-                    UpdateData("desserts", str);
-                }
-                else if (comboBoxCheck.SelectedIndex == 2)
-                {
-                    UpdateData("drink", str);
-                }
-            });
-            UpdateEditItem = new RelayCommand<object>(p => { return true; }, p => {
-                if (comboBoxCheck.SelectedIndex == 0)
-                {
-                    EditData("saltyfood", str);
-                }
-                else if (comboBoxCheck.SelectedIndex == 1)
-                {
-
-                   // UpdateData("desserts", str);
-                    EditData("desserts", str);
-                }
-                else if (comboBoxCheck.SelectedIndex == 2)
-                {
-                   // UpdateData("drink", str);
-                    EditData("drink", str);
-                }
-                
-
-            });
-
-            openDialogImage = new RelayCommand<object>(p => { return true; }, p =>
+            OpenDialogImageCreateItem = new RelayCommand<object>(p => { return true; }, p =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 if (openFileDialog.ShowDialog() == true)
                 {
                     newItemz.pathImage = openFileDialog.FileName;
-                    OnPropertyChanged("newItemz");                  
+                    OnPropertyChanged("newItemz");
                 }
             });
-            OpenDialogEditImage = new RelayCommand<object>(p => { return true; }, p => {
+            OpenDialogImageEditItem = new RelayCommand<object>(p => { return true; }, p =>
+            {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 if (openFileDialog.ShowDialog() == true)
                 {
-                     itemDisplay.pathImage = openFileDialog.FileName;
+                    itemDisplay.pathImage = openFileDialog.FileName;
                     OnPropertyChanged("itemDisplay");
                 }
 
             });
-            selectF = new RelayCommand<object>(p => { return true; }, p =>
+
+
+            CommandCreateItem = new RelayCommand<object>(p => { return true; }, p =>
             {
-                if (comboBoxCheck.SelectedIndex == 0)
+
+                if (TypeOfItem.SelectedIndex == 0)
                 {
-                    UpdateData("saltyfood", str);
+                    CreateItem(AdminName, TableName.Saltyfood, str);
+                    // DefaultDisplayItems();
                 }
-                else if (comboBoxCheck.SelectedIndex == 1)
+                else if (TypeOfItem.SelectedIndex == 1)
+                {
+                    CreateItem(AdminName, TableName.Desserts, str);
+                    //DefaultDisplayItems();
+
+                }
+                else if (TypeOfItem.SelectedIndex == 2)
+                {
+                    CreateItem(AdminName, TableName.Drink, str);
+                    //DefaultDisplayItems();
+
+                }
+
+
+            });
+            //OpenCreateItem = new RelayCommand<object>(p => { return true; }, p => { });
+            CloseViewCreateItem = new RelayCommand<object>(p => { return true; }, p =>
+            {
+                newItemz.id = newItemz.namez = newItemz.price = newItemz.sale
+                 = newItemz.information = newItemz.timeLine = newItemz.repaiTime = newItemz.pathImage = null;
+                OnPropertyChanged("newItemz");
+            });
+
+
+            UpdateDataOfEditItem = new RelayCommand<object>(p => { return true; }, p =>
+            {
+                var a = p as ListView;
+                if (itemDisplay.id == "unknow")
+                { MessageBox.Show("không có dữ liệu để cập nhập"); DefaultDisplayItems(); }
+                else if (TypeOfItem.SelectedIndex == 0)
+                {
+                    EditItem(AdminName, TableName.Saltyfood, str);
+                }
+                else if (TypeOfItem.SelectedIndex == 1)
                 {
 
-                    UpdateData("desserts", str);
+                    EditItem(AdminName, TableName.Desserts, str);
                 }
-                else if (comboBoxCheck.SelectedIndex == 2)
+                else if (TypeOfItem.SelectedIndex == 2)
                 {
-                    UpdateData("drink", str);
+
+                    EditItem(AdminName, TableName.Drink, str);
+                }
+
+            });
+
+
+            SelectDispalayListItem = new RelayCommand<object>(p => { return true; }, p =>
+            {
+                if (TypeOfItem.SelectedIndex == 0)
+                {
+                    UpdateListItem(AdminName, TableName.Saltyfood, str);
+                    DefaultDisplayItems();
+                }
+                else if (TypeOfItem.SelectedIndex == 1)
+                {
+                    UpdateListItem(AdminName, TableName.Desserts, str);
+                    DefaultDisplayItems();
+
+                }
+                else if (TypeOfItem.SelectedIndex == 2)
+                {
+                    UpdateListItem(AdminName, TableName.Drink, str);
+                    DefaultDisplayItems();
+
                 }
             });
-            itemDelete = new RelayCommand<object>(p => { return true; }, p =>
+
+            DeleteOneItem = new RelayCommand<object>(p => { return true; }, p =>
             {
-                if (comboBoxCheck.SelectedIndex == 0)
+                if (TypeOfItem.SelectedIndex == 0)
                 {
-                    DeleteData("saltyfood", str, itemDisplay);
+                    DeleteItem(AdminName, TableName.Saltyfood, str, itemDisplay);
                 }
-                else if (comboBoxCheck.SelectedIndex == 1)
+                else if (TypeOfItem.SelectedIndex == 1)
                 {
 
-                    DeleteData("desserts", str, itemDisplay);
+                    DeleteItem(AdminName, TableName.Desserts, str, itemDisplay);
                 }
-                else if (comboBoxCheck.SelectedIndex == 2)
+                else if (TypeOfItem.SelectedIndex == 2)
                 {
-                    DeleteData("drink", str, itemDisplay);
+                    DeleteItem(AdminName, TableName.Drink, str, itemDisplay);
                 }
 
             });
         }
-        void isLoadData()
-        {
 
-        }
-        void UpdateData(string tableName, string connectionString)
+
+        void UpdateListItem(string AdminName, string tableName, string connectionString)
         {
-            {// cho mặc định ko có dữ li
-                itemFreeData(itemDisplay);
-                OnPropertyChanged("itemDisplay");
-                items.Clear();
-            }
-           
+            ListItem.Clear();
             using (var command = new MySqlCommand())
             {
                 var connection = new MySqlConnection(connectionString);
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = $"select * from {tableName}";
+                command.CommandText = $@"select * from {tableName} where userAdmin=@userAdmin";
+                command.Parameters.AddWithValue("@userAdmin", AdminName);
                 var result = command.ExecuteReader();
                 if (result.HasRows)
                 {
-                    
                     while (result.Read())
                     {
-                        items.Add(new Itemz(result));
+                        ListItem.Add(new Itemz(result));
                     }
                     result.Close();
                 }
                 connection.Close();
             }
-            if (items.Count != 0)
-            {
-                LoadDisplayItem(items[0] as Itemz);
-            }
-           
+
+
         }
-        void LoadDisplayItem(Itemz item)
+        void DefaultDisplayItems()
+        {
+            if (ListItem.Count != 0)
+            {
+                DisplayItems(ListItem[0] as Itemz);// mặc định display item đầu tiên
+            }
+            else
+            {
+                FreeDataItem(itemDisplay);
+                OnPropertyChanged("itemDisplay");
+            }
+        }
+        void DisplayItems(Itemz item)
         {
             try
             {
@@ -240,16 +248,15 @@ namespace h25.ViewModels
             {
 
             }
-            
         }
-        void itemFreeData(Itemz iz)
+        void FreeDataItem(Itemz iz)
         {
             iz.id = iz.namez = iz.price = iz.sale
               = iz.information = iz.timeLine = iz.repaiTime = "unknow";
             iz.pathImage = null;
             // OnPropertyChanged("itemDisplay");
         }
-        void CreateData(string tableName, string connectionString)
+        void CreateItem(string AdmimName, string tableName, string connectionString)
         {
             // kiểm tra dữ liệu đầu vào 
 
@@ -296,20 +303,20 @@ namespace h25.ViewModels
             }
             else
             {
-
                 using (var command = new MySqlCommand())
                 {
                     command.Connection = new MySqlConnection(connectionString);
                     command.Connection.Open();
-                    command.CommandText = $"insert into {tableName}(namez  ,price ,pathImage ,information ,sale ,timeLine,repaiTime ) " +
-                        "values(@namez  ,@price ,@pathImage ,@information ,@sale ,@timeLine,@repaiTime )";
+                    command.CommandText = $"insert into {tableName}(namez  ,price ,pathImage ,information ,sale ,timeLine,repaiTime,userAdmin ) " +
+                        "values(@namez  ,@price ,@pathImage ,@information ,@sale ,@timeLine,@repaiTime,@userAdmin )";
                     var a = DateTime.Now;
                     //dùng lam chuỗi lưu ảnh 
-                    string ppath = a.Year.ToString() + a.Month.ToString() + a.Day.ToString() 
-                        + a.Hour.ToString() + a.Minute.ToString() + a.Second.ToString() +a.Millisecond.ToString();
+                    string ppath = a.Year.ToString() + a.Month.ToString() + a.Day.ToString()
+                        + a.Hour.ToString() + a.Minute.ToString() + a.Second.ToString() + a.Millisecond.ToString();
                     newItemz.timeLine = newItemz.repaiTime = a.ToString();
                     string sk = newItemz.pathImage;
                     newItemz.pathImage = $@"../Images/{ppath}.jpg";
+                    command.Parameters.AddWithValue("@userAdmin", AdmimName);
                     command.Parameters.AddWithValue("@namez", newItemz.namez);
                     command.Parameters.AddWithValue("@price", newItemz.price);
                     command.Parameters.AddWithValue("@pathImage", newItemz.pathImage);
@@ -321,37 +328,73 @@ namespace h25.ViewModels
                     command.Connection.Close();
                     var s = System.Drawing.Image.FromFile(sk);
                     s.Save(newItemz.pathImage);
+                    warning = "tạo thành công ";
+                    OnPropertyChanged("warning");
+                    HistoryData(AdminName, tableName, TypeDIU.Insert, connectionString, newItemz);
+                    UpdateListItem(AdmimName, tableName, connectionString);
+                    if (itemDisplay.pathImage == null) DefaultDisplayItems();
                 }
-                warning = "tạo thành công ";
-                OnPropertyChanged("warning");
-                UpdateData(tableName, connectionString);
             }
         }
-        void DeleteData(string tableName, string connectionString, Itemz isDeleteitem)
+
+
+        bool checkstr(string strCheck)
         {
-            if (items.Count != 0)
+            if (strCheck == null) return true;
+            else if (strCheck.Length == 0) return true;
+            else if (strCheck.Trim().Length == 0) return true;
+            return false;
+        }
+        bool checkint(string strCheck)
+        {
+            try
+            {
+                int a = int.Parse(strCheck.Trim());
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        void DeleteItem(string AdminName, string tableName, string connectionString, Itemz isDeleteitem)
+        {
+            if (ListItem.Count != 0)
             {
                 using (var command = new MySqlCommand())
                 {
                     command.Connection = new MySqlConnection(connectionString);
                     command.Connection.Open();
-                    command.CommandText = $"delete from {tableName} where id=@id";
+                    command.CommandText = $"delete from {tableName} where id=@id and userAdmin=@userAdmin";
                     command.Parameters.AddWithValue("@id", isDeleteitem.id);
+                    command.Parameters.AddWithValue("@userAdmin", AdminName);
                     command.ExecuteNonQuery();
                     command.Connection.Close();
-                    items.Clear();
+                    ListItem.Clear();
                 }
-                fileImageIsRemove("pathimageremove",connectionString,isDeleteitem.pathImage);
-                UpdateData(tableName, connectionString);
+                UpdateListItem(AdminName, tableName, connectionString);
+                if (ListItem.Count != 0)
+                {
+                    HistoryData(AdminName, tableName, TypeDIU.Delete, connectionString, isDeleteitem);
+                    DefaultDisplayItems();
+                }
+                else
+                {
+                    HistoryData(AdminName, tableName, TypeDIU.Delete, connectionString, isDeleteitem);
+                    DefaultDisplayItems();
+                }
+
             }
             else
             {
                 MessageBox.Show("Không có dữ liệu để xóa");
             }
         }
-        void EditData(string tableName, string connectionString)
+        void EditItem(string AdminName, string tableName, string connectionString)
         {
-            if (checkstr(itemDisplay.namez))
+            if (itemDisplay == null || itemDisplay.id == null) MessageBox.Show("Không có dữ liệu");
+            else if (checkstr(itemDisplay.namez))
             {
                 warning = "xin hãy nhập tên sản phẩm";
                 OnPropertyChanged("warning");
@@ -394,92 +437,101 @@ namespace h25.ViewModels
             }
             else
             {
+
                 using (var command = new MySqlCommand())
                 {
                     command.Connection = new MySqlConnection(connectionString);
                     command.Connection.Open();
 
                     command.CommandText = $"update {tableName} set namez=@namez  , price=@price ,pathImage=@pathImage , information=@information" +
-                     $" ,sale=@sale ,repaiTime=@repaiTime where id =@id";
+                     $" ,sale=@sale ,repaiTime=@repaiTime where id =@id and userAdmin=@userAdmin";
                     command.Parameters.AddWithValue("@namez", itemDisplay.namez);
                     command.Parameters.AddWithValue("@id", itemDisplay.id);
                     command.Parameters.AddWithValue("@price", itemDisplay.price);
                     command.Parameters.AddWithValue("@pathImage", itemDisplay.pathImage);
                     command.Parameters.AddWithValue("@information", itemDisplay.information);
                     command.Parameters.AddWithValue("@sale", itemDisplay.sale);
-                    //command.Parameters.AddWithValue("@timeLine", newItemz.timeLine);
-                    command.Parameters.AddWithValue("@repaiTime", itemDisplay.repaiTime);
+                    command.Parameters.AddWithValue("@userAdmin", AdminName);
+                    command.Parameters.AddWithValue("@repaiTime", DateTime.Now.ToString());
                     command.ExecuteNonQuery();
                     command.Connection.Close();
                     MessageBox.Show("cập nhật thành công");
+                    HistoryData(AdminName, tableName, TypeDIU.Update, connectionString, itemDisplay);
+                    UpdateListItem(AdminName, tableName, connectionString);
+
+
                 }
+
             }
-          
+
         }
-        bool checkstr(string strCheck)
+
+        void HistoryData(string userAdmin, string tableName, TypeDIU typeDIU, string connectionString, Itemz itemDelete)
         {
-            if (strCheck == null) return true;
-            else if (strCheck.Length == 0) return true;
-            else if (strCheck.Trim().Length == 0) return true;
-            return false;
-        }
-        bool checkint(string strCheck)
-        {
-            try
-            {
-                int a = int.Parse(strCheck.Trim());
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        void fileImageIsRemove(string tablename,string connectionString,string PathImageRemove)
-        {
-            using (var command =new MySqlCommand())
-            {
-                command.Connection = new MySqlConnection(connectionString);
-                command.Connection.Open();
-                command.CommandText = $"insert into {tablename}(pathImage) values(@pathImage)";
-                command.Parameters.AddWithValue("@pathImage", PathImageRemove);
-                command.ExecuteNonQuery();
-                command.Connection.Close();
-            }
-        }
-        void DeleteFilePathImage(string tablename, string connectionString)
-        {
-            using (var command = new MySqlCommand())
-            {
-                command.Connection = new MySqlConnection(connectionString);
-                command.Connection.Open();
-                command.CommandText = $"select * from {tablename}";
-                var result = command.ExecuteReader();
-                ObservableCollection<string> l = new ObservableCollection<string>();
-                if (result.HasRows)
+            
+            if (typeDIU == TypeDIU.Delete)
+                diuz = "Delete";
+            else if (typeDIU == TypeDIU.Insert)
+                diuz = "Insert";
+            else if (typeDIU == TypeDIU.Update) 
+                diuz = "Update";
+
+                using (var command = new MySqlCommand())
                 {
-                    while (result.Read())
-                    {
-                        l.Add(result.GetString("pathImage"));
-                    }
-                    result.Close();
+                    command.Connection = new MySqlConnection(connectionString);
+                    command.Connection.Open();
+                    command.CommandText = $"insert into historyOfData(userAdmin,diu,tableName,id,namez,timeLine,pathImage) " +
+                            $"values(@userAdmin,@diu,@tableName,@id,@namez,@timeLine,@pathImage)";
+                    command.Parameters.AddWithValue("@pathImage", itemDelete.pathImage);
+                    command.Parameters.AddWithValue("@userAdmin", AdminName);
+                    command.Parameters.AddWithValue("@diu", $"{diuz}");
+                    command.Parameters.AddWithValue("@tableName", tableName);
+                    command.Parameters.AddWithValue("@id", itemDelete.id);
+                    command.Parameters.AddWithValue("@namez", itemDelete.namez);
+                    command.Parameters.AddWithValue("@timeLine", DateTime.Now.ToString());
+                    command.ExecuteNonQuery();
+                    command.Connection.Close();
                 }
-                command.Connection.Close();
-                foreach (var item in l)
+        }
+        void DeleteFilePathImage(string userAdmin, string tableName, TypeDIU typeDIU, string connectionString)
+        {
+            if (typeDIU == TypeDIU.Delete)
+                using (var command = new MySqlCommand())
                 {
-                    try
+                    command.Connection = new MySqlConnection(connectionString);
+                    command.Connection.Open();
+                    command.CommandText = $"select pathImage from {tableName} where userAdmin=@userAdmin and diu=@diu";
+                    command.Parameters.AddWithValue("@userAdmin", userAdmin);
+                    command.Parameters.AddWithValue("@diu", "Delete");
+                    var result = command.ExecuteReader();
+                    ObservableCollection<string> l = new ObservableCollection<string>();
+                    if (result.HasRows)
                     {
-                        if (System.IO.File.Exists(item))
+                        while (result.Read())
                         {
-                            System.IO.File.Delete(item);
+                            l.Add(result.GetString("pathImage"));
                         }
+                        result.Close();
                     }
-                    catch
+                    command.Connection.Close();
+                    foreach (var item in l)
                     {
+                        try
+                        {
+                            if (System.IO.File.Exists(item))
+                            {
+
+                                System.IO.File.Delete(item);
+                            }
+
+                        }
+                        catch
+                        {
+
+                        }
+
                     }
-                   
                 }
-            }
         }
 
         private bool UserFilter(object it)

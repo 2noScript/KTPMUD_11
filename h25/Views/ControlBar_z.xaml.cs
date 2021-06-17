@@ -23,6 +23,6 @@ namespace h25.Views
         public ControlBar_z()
         {
             InitializeComponent();
-        }
+        }      
     }
 }

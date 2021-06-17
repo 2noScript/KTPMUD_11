@@ -3,6 +3,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ViewModel:VMmain x:Key="vmmain"/>
     <ViewModel:VMlogin x:Key="vmlogin"/>
+    <ViewModel:VMloginClient x:Key="vmloginclient"/>
     <ViewModel:VMcontent_z x:Key="vmcontent_z"/>
     <ViewModel:VMadd x:Key="vmadd"/>
     <ViewModel:VMitemz x:Key="vmitemz"/>

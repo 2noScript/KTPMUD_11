@@ -72,7 +72,7 @@ namespace h25.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/h25;component/views/itemz.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/little leaf;component/views/itemz.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Views\itemz.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

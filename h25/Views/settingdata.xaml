@@ -14,16 +14,20 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-            <Button Width="50" Command="{Binding isConnection}" 
+            <Button Width="50" Command="{Binding CheckConnectionString}" 
                     DataContext="{StaticResource vmmain}"/>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <TextBox Text="{Binding Strconnect}" 
+            <TextBox 
+                 x:Name="connectionString"
+                 Text="{Binding strConnect}"
                  MinWidth="450"                   
                  DataContext="{StaticResource vmmain}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding changeConnectionString}"/>
+                        <i:InvokeCommandAction 
+                            CommandParameter="{Binding ElementName=connectionString}"
+                            Command="{Binding changeConnectionString}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>

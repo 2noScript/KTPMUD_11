@@ -15,16 +15,13 @@
         Title="add" Height="700" Width="900">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
-            <!--<i:InvokeCommandAction Command="{Binding closeConenction}"></i:InvokeCommandAction>-->
+
         </i:EventTrigger>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding isLoad1}"
-                                   CommandParameter="{Binding  ElementName=imageDisplay}" />
-            <i:InvokeCommandAction Command="{Binding isLoad2}"
-                                   CommandParameter="{Binding  ElementName=imageCreate}" />
-            <i:InvokeCommandAction Command="{Binding isLoad3}"
-                                   CommandParameter="{Binding ElementName=comboBoxCheck}"
-                                    />
+            <i:InvokeCommandAction Command="{Binding DeletePathImageItem}"/>
+            <i:InvokeCommandAction Command="{Binding LoadDefaultListItem}"/>
+            <i:InvokeCommandAction Command="{Binding GetComboBox}"
+                                   CommandParameter="{Binding ElementName=comboBoxCheck}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Resources>
@@ -160,29 +157,29 @@
 
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="SelectionChanged">
-                                                <i:InvokeCommandAction Command="{Binding selectF}"/>
+                                                <i:InvokeCommandAction Command="{Binding  SelectDispalayListItem}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </ComboBox>
                                     <TextBox
                                         Text="{Binding SearchItem,UpdateSourceTrigger=PropertyChanged}"
-                                        Width="200"
+                                        Width="300"
                                         Margin="20 13.5 0 0"
                                         Height="40"
                                           materialDesign:HintAssist.Hint="Tìm kiếm"
                                           Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding isSearchOfNamez}"/>
+                                                <i:InvokeCommandAction Command="{Binding SearchOfNameItem}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </TextBox>
-                                    
-                                        <Button Style="{DynamicResource stylerbtn}"
+
+                                    <!--<Button Style="{DynamicResource stylerbtn}"
                                             Height="30"
                                             Width="100"
                                             Margin="10 22 0 0"
-                                            Content="Tìm kiếm"/>
+                                            Content="Tìm kiếm"/>-->
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10 14 0 0">
                                     <Button Style="{DynamicResource stylerbtn}"
@@ -202,9 +199,16 @@
                                             CommandParameter="{x:Static Dock.Top}"
                                             Margin="20 0 0 0"
                                             Width="140"
-                                            Content="Chỉnh sử sản Phẩm"/>
+                                            Content="Chỉnh sử sản Phẩm">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger>
+                                                <i:InvokeCommandAction Command="{Binding OpenCreateItem}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Button>
+                                     
                                     <Button Style="{DynamicResource stylerbtn}"
-                                            Command="{Binding itemDelete}"                             
+                                            Command="{Binding DeleteOneItem}"                             
                                             Margin="20 0 0 0"
                                             Width="140"
                                             Content="Xóa"/>
@@ -246,7 +250,7 @@
                                             Style="{DynamicResource stylerbtn}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
-                                                <i:InvokeCommandAction Command="{Binding closeOpenCreateItem}">
+                                                <i:InvokeCommandAction Command="{Binding CloseViewCreateItem}">
                                                 </i:InvokeCommandAction>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
@@ -300,10 +304,10 @@
                                                     <Button Style="{DynamicResource stylerbtn}"
                                                      Margin="0 5 0 0"
                                                     Height="30" 
-                                                            Command="{Binding openDialogImage}"
+                                                            Command="{Binding OpenDialogImageCreateItem}"
                                                     Content="Chọn ảnh" Width="160"/>
                                                     <Button Style="{DynamicResource stylerbtn}"
-                                                     Command="{Binding createItem}"     
+                                                     Command="{Binding  CommandCreateItem}"     
                                                      Margin="30 5 0 0"
                                                     Height="30"
                                                     Content="Thêm" Width="160"/>
@@ -349,7 +353,7 @@
                                             Style="{DynamicResource stylerbtn}">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="Click">
-                                                <i:InvokeCommandAction Command="{Binding closeOpenEditItem}"/>
+                                               
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Button>
@@ -377,7 +381,7 @@
                                                   materialDesign:HintAssist.Hint="Giảm Giá (%)"
                                                   Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                                             <TextBox
-                                                        Text="{Binding itemDisplay.information}"
+                                                        Text="{Binding itemDisplay.information,UpdateSourceTrigger=LostFocus}"
                                                         Width="300"
                                                         Style="{StaticResource  MaterialDesignFilledTextBox}"
                                                         Margin="0 5 0 0"                                                        
@@ -391,12 +395,13 @@
                                                         HorizontalAlignment="Center"
                                                         Margin="0 10 0 0">
                                                 <Button Style="{DynamicResource stylerbtn}"
-                                                        Command="{Binding OpenDialogEditImage}"
+                                                        Command="{Binding OpenDialogImageEditItem}"
                                                      Margin="0 0 0 0"
                                                     Height="30"
                                                     Content="Chọn ảnh mới" Width="140"/>
                                                 <Button Style="{DynamicResource stylerbtn}"
-                                                        Command="{Binding UpdateEditItem}"
+                                                        Command="{Binding UpdateDataOfEditItem}"
+                                                        CommandParameter="{Binding ElementName=listItemz}"
                                                      Margin="20 0 0 0"
                                                     Height="30"
                                                     Content="cập nhật" Width="140"/>
@@ -448,12 +453,12 @@
                     <Grid Grid.Row="1">
                         <ListView                             
                             x:Name="listItemz"
-                           ItemsSource="{Binding items}"
+                           ItemsSource="{Binding ListItem}"
                           Width="900"
                           HorizontalAlignment="Left">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseDoubleClick">
-                                    <i:InvokeCommandAction Command="{Binding selectItem}" 
+                                    <i:InvokeCommandAction Command="{Binding SelectItem}" 
                                                            CommandParameter="{Binding ElementName=listItemz}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>

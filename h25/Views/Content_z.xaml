@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             Name="content_z"
+             x:Name="content_z"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"  
              DataContext="{StaticResource vmcontent_z}"
              xmlns:local="clr-namespace:h25.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <materialDesign:Card>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,8 +26,8 @@
                     </ControlTemplate>
                     <Style TargetType="Button">
                         <Setter Property="Template" Value="{StaticResource c}"/>
-                        <Setter Property="Height" Value="60"/>
-                        <Setter Property="Width" Value="70"/>
+                        <Setter Property="MinHeight" Value="60"/>
+                        <Setter Property="MinWidth" Value="70"/>
                         <!--<Setter Property="BorderThickness" Value="0"/>-->
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
@@ -40,7 +41,7 @@
                 <Label Content="MENU" Height="35"                      
                        VerticalContentAlignment="Center"
                        HorizontalAlignment="Center"/>
-                <Button Name="btn1">
+                <Button Name="saltyfood">
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <Image Source="/Images/rice.png" Width="30"/>
@@ -50,17 +51,17 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[0]}" 
-                                   CommandParameter="{Binding ElementName=btn1}"/>
+                                   CommandParameter="{Binding ElementName=saltyfood}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn1}"/>
-                            <i:InvokeCommandAction Command="{Binding slectContentListItem}" 
-                                                   CommandParameter="{Binding ElementName=btn1}"/>
+                                                   CommandParameter="{Binding ElementName=saltyfood}"/>
+                            <i:InvokeCommandAction Command="{Binding SlectContentListItem}" 
+                                                   CommandParameter="{Binding ElementName=saltyfood}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Name="btn2" >
+                <Button Name="desserts" >
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <Image Source="/Images/fast_food.png" Width="30"/>
@@ -70,17 +71,17 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[1]}" 
-                                   CommandParameter="{Binding ElementName=btn2}"/>
+                                   CommandParameter="{Binding ElementName=desserts}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn2}"/>
-                            <i:InvokeCommandAction Command="{Binding slectContentListItem}" 
-                                                   CommandParameter="{Binding ElementName=btn2}"/>
+                                                   CommandParameter="{Binding ElementName=desserts}"/>
+                            <i:InvokeCommandAction Command="{Binding SlectContentListItem}" 
+                                                   CommandParameter="{Binding ElementName=desserts}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Name="btn3">
+                <Button Name="drink">
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <Image Source="/Images/drink.png" Width="30"/>
@@ -91,17 +92,17 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[2]}" 
-                                   CommandParameter="{Binding ElementName=btn3}"/>
+                                   CommandParameter="{Binding ElementName=drink}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn3}"/>
-                            <i:InvokeCommandAction Command="{Binding slectContentListItem}" 
-                                                   CommandParameter="{Binding ElementName=btn3}"/>
+                                                   CommandParameter="{Binding ElementName=drink}"/>
+                            <i:InvokeCommandAction Command="{Binding SlectContentListItem}" 
+                                                   CommandParameter="{Binding ElementName=drink}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Visibility="{Binding IsHide_z}" Name="btn4">
+                <Button Visibility="{Binding HideUser}" Name="basket">
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <Image Source="/Images/food.png" Width="30"/>
@@ -112,53 +113,53 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[3]}" 
-                                   CommandParameter="{Binding ElementName=btn4}"/>
+                                   CommandParameter="{Binding ElementName=basket}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn4}"/>
+                                                   CommandParameter="{Binding ElementName=basket}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Visibility="{Binding IsHide_z}" Name="btn5" Background="#FF7866C2">
+                <Button Visibility="{Binding HideAdmin}" Name="notification" >
                     <Border>
                         <StackPanel Orientation="Vertical">
                             <Image Source="/Images/notification.png" Width="30"/>
-                            <TextBlock Text="giỏ" HorizontalAlignment="Center"/>
+                            <TextBlock Text="notification" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[4]}" 
-                                   CommandParameter="{Binding ElementName=btn5}"/>
+                                   CommandParameter="{Binding ElementName=notification}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn5}"/>
+                                                   CommandParameter="{Binding ElementName=notification}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Visibility="{Binding IsHide}" Name="btn6">
+                <Button Visibility="{Binding HideAdmin}" Name="message">
                     <Border>
                         <StackPanel>
                             <Image Source="/Images/chat.png" Width="30"/>
-                            <TextBlock Text="Thông báo" HorizontalAlignment="Center"/>
+                            <TextBlock Text="message" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[5]}" 
-                                   CommandParameter="{Binding ElementName=btn6}"/>
+                                   CommandParameter="{Binding ElementName=message}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn6}"/>
+                                                   CommandParameter="{Binding ElementName=message}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Visibility="{Binding IsHide}" Name="btn7">
+                <Button Visibility="{Binding HideAdmin}" Name="chart">
                     <Border>
                         <StackPanel>
                             <Image Source="/Images/stats.png" Width="30"/>
@@ -169,35 +170,35 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[6]}" 
-                                   CommandParameter="{Binding ElementName=btn7}"/>
+                                   CommandParameter="{Binding ElementName=chart}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn7}"/>
+                                                   CommandParameter="{Binding ElementName=chart}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Visibility="{Binding IsHide}" Name="btn8">
+                <Button Visibility="{Binding HideAdmin}" Name="OpenAdminDIU">
                     <Border>
                         <StackPanel>
                             <Image Source="/Images/add.png" Width="30"/>
-                            <TextBlock Text="add" HorizontalAlignment="Center"/>
+                            <TextBlock Text="" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[7]}" 
-                                   CommandParameter="{Binding ElementName=btn8}"/>
+                                   CommandParameter="{Binding ElementName=OpenAdminDIU}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn8}"/>
-                            <i:InvokeCommandAction Command="{Binding openAdd}" 
+                                                   CommandParameter="{Binding ElementName=OpenAdminDIU}"/>
+                            <i:InvokeCommandAction Command="{Binding  OpenAdminDIU}" 
                                                    />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
-                <Button Visibility="{Binding IsHide}" Name="btn9">
+                <Button Visibility="{Binding HideAdmin}" Name="InForAdmin">
                     <Border>
                         <StackPanel>
                             <Image Source="/Images/person.png" Width="30"/>
@@ -207,11 +208,11 @@
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding listIsLoad[8]}" 
-                                   CommandParameter="{Binding ElementName=btn9}"/>
+                                   CommandParameter="{Binding ElementName=InForAdmin}"/>
                         </i:EventTrigger>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding checkz}" 
-                                                   CommandParameter="{Binding ElementName=btn9}"/>
+                                                   CommandParameter="{Binding ElementName=InForAdmin}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>
@@ -240,19 +241,20 @@
                                 <Setter Property="Background" Value="#FFEAE2E2"/>
                             </Style>
                         </StackPanel.Resources>
-                        <Button>
+                        <!--<Button>
                             <Button.Background>
                                 <ImageBrush ImageSource="/images/search.png"/>
                             </Button.Background>
-                        </Button>
-                        <TextBox Name="o"
-                                 MinWidth="400" 
-                                                               
+                        </Button>-->
+                        <TextBox Name="o"                               
+                                 MinWidth="550" 
+                                 Text="{Binding SearchItem,UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource   MaterialDesignTextBox}"
                                  MinHeight="35"
                                  FontSize="16"
                                  FontStretch="ExtraCondensed"
                                  HorizontalAlignment="Center"
-                                 VerticalAlignment="Center"                                 
+                                 VerticalAlignment="Top"                                 
                                  materialDesign:HintAssist.Hint="       Tìm Kiếm" 
                                  Background="#FFEAE2E2">
                             <!--<TextBox.InputBindings>
@@ -262,41 +264,42 @@
                             </TextBox.InputBindings>-->
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="TextChanged">
-                                    <i:InvokeCommandAction Command="{Binding isSearchOfNamez}"/>
+                                    <i:InvokeCommandAction Command="{Binding SearchNamezOfItem}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
                         <ComboBox materialDesign:HintAssist.Hint="Giá "
                                   VerticalAlignment="Center"
                                   HorizontalAlignment="Center"
-                                  Width="100"
+                                  Width="200"
                                   Margin="10 0 0 -10">
                             <ComboBoxItem>
-                                Android
+                                20000 vnđ ->100000 vnđ
                             </ComboBoxItem>
                             <ComboBoxItem>
-                                iOS
+                                100000 vnđ ->500000 vnđ
                             </ComboBoxItem>
                             <ComboBoxItem>
-                                Linux
+                                Từ 500000 vnđ 
                             </ComboBoxItem>
                             <ComboBoxItem>
-                                Windows
+                                
                             </ComboBoxItem>
                         </ComboBox>
                     </StackPanel>
                 </Grid>
                 <!--_______________Show sp____________________-->
                 <Grid Grid.Row="1" Background="AliceBlue" >
-                    <ListBox x:Name="content_lbox"
-                             
-                             ItemsSource="{Binding listItem}" >
+                    <ListBox Name="ListItem"                               
+                             FocusableChanged="content_lbox_FocusableChanged"
+                             ItemsSource="{Binding ListItem}" >
                         <i:Interaction.Triggers>
-                            <!--<i:EventTrigger EventName="SelectionChanged">
-                                <i:InvokeCommandAction Command="{Binding openItem}"/>
-                            </i:EventTrigger>-->
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding GetLisViewItem}" 
+                                   CommandParameter="{Binding ElementName=ListItem}"/>
+                            </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        
+
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" 
@@ -315,8 +318,8 @@
                                                          >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="MouseDoubleClick" >
-                                            <i:InvokeCommandAction
-                                                
+                                            <i:InvokeCommandAction  
+                                               
                                                       Command="{Binding openItem,Source={StaticResource vmcontent_z}}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>

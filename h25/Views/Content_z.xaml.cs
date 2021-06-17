@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -26,19 +27,12 @@ namespace h25.Views
             InitializeComponent();
         }
 
-        
-        //private void TextBox_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    //if (e.Key == Key.Enter) MessageBox.Show("ấn");
-            
-        //}
+        private void content_lbox_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("what");
+        }
 
-        //private void Card_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    // MessageBox.Show((content_lbox.SelectedItem as c).name);
-        //    var h = new t1();
-        //    h.Show();
-        //}
-            
+
+
     }
 }

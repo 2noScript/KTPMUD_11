@@ -19,47 +19,50 @@ namespace h25.ViewModels
 {
     class VMcontent_z : BaseViewModel
     {
-        Visibility isHide;
-        Visibility isHide_z;
-        public Visibility IsHide { get => isHide; set { isHide = value; OnPropertyChanged(); } }
-        public Visibility IsHide_z { get => isHide_z; set { isHide_z = value; OnPropertyChanged(); } }
+        Visibility hideAdmin;
+        Visibility hideUser;
+        public Visibility HideAdmin { get => hideAdmin; set { hideAdmin = value; OnPropertyChanged(); } }
+        public Visibility HideUser { get => hideUser; set { hideUser = value; OnPropertyChanged(); } }
         private List<Button> buttons;
         public List<ICommand> listIsLoad { get; set; }
+        public btn btn { get; set; }
         public ICommand checkz { get; set; }
-
         public ICommand thongbao { get; set; }
         public ICommand rethongbao { get; set; }
         public ICommand openItem { get; set; }
-        public ICommand openAdd { get; set; }
-        public ICommand isSearchOfNamez { get; set; }
-
-        public ICommand slectContentListItem { get; set; }
+        public ICommand OpenAdminDIU { get; set; }
+        public ICommand SearchNamezOfItem { get; set; }
+        public ICommand SlectContentListItem { get; set; }
+        public ICommand GetLisViewItem { get; set; }
         string connectionString = VMmain.connectionString;
-        public ObservableCollection<Itemz> listItem { get; set; }
+        public ObservableCollection<Itemz> ListItem { get; set; }
+        public static ListBox ListViewItem { get; set; }
         public string SearchItem { get; set; }
+        private VItemz item;
         public VMcontent_z()
         {
             initialization();
-            LoadData("saltyfood", connectionString);
+
         }
 
         void initialization()
         {
-            buttons = new List<Button>();            
-
+            btn = new btn();
+            item = new VItemz();
+            buttons = new List<Button>();
             {
-                listItem = new ObservableCollection<Itemz>();
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listItem);
+                ListItem = new ObservableCollection<Itemz>();
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListItem);
                 view.Filter = UserFilter;
-                
+
             }
-            isSearchOfNamez = new RelayCommand<object>(p => { return true; }, p => {
-                //CollectionViewSource.GetDefaultView(listItem).Refresh();
-                MessageBox.Show("what");
+            GetLisViewItem = new RelayCommand<ListBox>(p => { return true; }, p => { ListViewItem = p; });
+            SearchNamezOfItem = new RelayCommand<object>(p => { return true; }, p =>
+            {
+                CollectionViewSource.GetDefaultView(ListItem).Refresh();
+                OnPropertyChanged("listItem");
             });
             listIsLoad = new List<ICommand>();
-            
-            
             listIsLoad.Add(new RelayCommand<Button>(p => { return true; }, p => { buttons.Add(p); }));
             listIsLoad.Add(new RelayCommand<Button>(p => { return true; }, p => { buttons.Add(p); }));
             listIsLoad.Add(new RelayCommand<Button>(p => { return true; }, p => { buttons.Add(p); }));
@@ -69,6 +72,7 @@ namespace h25.ViewModels
             listIsLoad.Add(new RelayCommand<Button>(p => { return true; }, p => { buttons.Add(p); }));
             listIsLoad.Add(new RelayCommand<Button>(p => { return true; }, p => { buttons.Add(p); }));
             listIsLoad.Add(new RelayCommand<Button>(p => { return true; }, p => { buttons.Add(p); }));
+
             checkz = new RelayCommand<Button>(p => { return true; }, p =>
             {
                 var g = p.Content as Border;
@@ -90,65 +94,76 @@ namespace h25.ViewModels
             });
             openItem = new RelayCommand<object>(p => { return true; }, p =>
             {
-                var item = new itemz();
-                item.ShowDialog();
+                VItemz a = new VItemz();
+                a.ShowDialog();
+
             });
-            openAdd = new RelayCommand<object>(p => { return true; }, p => { var add = new Add(); add.ShowDialog(); });
-            slectContentListItem = new RelayCommand<Button>(p => { return true; }, p =>
+            OpenAdminDIU = new RelayCommand<object>(p => { return true; }, p =>
             {
-                if (p.Name == "btn1")
+                VMmain.MainWindow.Visibility = Visibility.Collapsed;
+                var add = new Add(); add.ShowDialog();
+                VMmain.MainWindow.Visibility = Visibility.Visible;
+            });
+
+            SlectContentListItem = new RelayCommand<Button>(p => { return true; }, p =>
+            {
+                if (p.Name == "saltyfood")
                 {
-                    LoadData("saltyfood", connectionString);
-                    //MessageBox.Show(p.Name);
+                    LoadListItem("gamoet1", TableName.Saltyfood, connectionString);
+
                 }
-                else if (p.Name == "btn2")
+                else if (p.Name == "desserts")
                 {
-                    //MessageBox.Show(p.Name);
-                    LoadData("desserts", connectionString);
+
+                    LoadListItem("gamoet1", TableName.Desserts, connectionString);
                 }
-                else if (p.Name == "btn3")
+                else if (p.Name == "drink")
                 {
-                    LoadData("drink", connectionString);
+                    LoadListItem("gamoet1", TableName.Drink, connectionString);
                 }
             });
         }
-        
-        void LoadData(string tableName, string connectionString)
+
+        void LoadListItem(string adminName, string tableName, string connectionString)
         {
             using (var command = new MySqlCommand())
             {
                 command.Connection = new MySqlConnection(connectionString);
                 command.Connection.Open();
-                command.CommandText = $"select * from {tableName}";
-                listItem.Clear();
+                command.CommandText = $"select * from {tableName} where userAdmin=@userAdmin";
+                command.Parameters.AddWithValue("@userAdmin", adminName);
+                ListItem.Clear();// xóa dư liệu danh sách hiện tại để chuản bị cập nhật
                 var result = command.ExecuteReader();
                 if (result.HasRows)
                 {
                     while (result.Read())
                     {
-                        var a = new Itemz(result);
-                        a.pathImage = System.IO.Path.GetFullPath(a.pathImage);
+                        var item = new Itemz(result);
+                        item.pathImage = System.IO.Path.GetFullPath(item.pathImage);
 
-                        if (int.Parse(a.sale) != 0)
+                        if (int.Parse(item.sale) != 0)
                         {
-                            var g = double.Parse(a.price) * (1 - double.Parse(a.sale) / 100);
-                            a.price = $@"{(int)g} vnđ ( {a.price} vnđ)";
+                            var g = double.Parse(item.price) * (1 - double.Parse(item.sale) / 100);
+                            item.price = $@"{(int)g} vnđ ( {item.price} vnđ)";
                         }
-                        a.sale = $@"{a.sale} %";
-                        listItem.Add(a);
+                        else
+                        {
+                            item.price = $@" {item.price} vnđ";
+                        }
+                        item.sale = $@"{item.sale} %";
+                        ListItem.Add(item);
                     }
                     result.Close();
                 }
-
                 command.Connection.Close();
             }
         }
-        private bool UserFilter(object it)
+        private bool UserFilter(object item)
         {
             if (String.IsNullOrEmpty(SearchItem))
                 return true;
             else
-                return ((it as Itemz).namez.IndexOf(SearchItem, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as Itemz).namez.IndexOf(SearchItem, StringComparison.OrdinalIgnoreCase) >= 0);
         }
     }
 }

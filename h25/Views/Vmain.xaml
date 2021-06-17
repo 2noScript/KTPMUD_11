@@ -10,29 +10,61 @@
         xmlns:local="clr-namespace:h25.Views"
         WindowStyle="None"
         ResizeMode="NoResize"
+        Title=""
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
-        Name="vmain"
-        Title="Gà Mờ Et1" Height="700" Width="1200">
+        Icon="C:\Users\Administrator\Desktop\Images_h25\default.ico"  Name="vmain"
+        Height="700" Width="1200">
+    <Window.Background>
+        <ImageBrush ImageSource="C:\Users\Administrator\Desktop\Image\k1.jpg" Stretch="UniformToFill" />
+        
+    </Window.Background>
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding isload}" 
+            <i:InvokeCommandAction Command="{Binding GetMainWindow }" 
                                    CommandParameter="{Binding ElementName=vmain}"/>
+            <i:InvokeCommandAction Command="{Binding GetContentMainWindow}"
+                                   CommandParameter="{Binding ElementName=ContentMainWindow}" />
+            <i:InvokeCommandAction Command="{Binding GetControlBar}"
+                                   CommandParameter="{Binding ElementName=ControlBar}"/>
         </i:EventTrigger>
         <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding isClosed}"/>
+            <i:InvokeCommandAction Command="{Binding CloseMainWindow}"/>
         </i:EventTrigger>
+
     </i:Interaction.Triggers>
-    
+
     <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <local:ControlBar_z Grid.Row="0" Tag="{Binding Title,ElementName=vmain}"/>
 
-        <Grid Grid.Row="1" Opacity="1" >
-            <Image gif:AnimationBehavior.SourceUri="C:\Users\Administrator\Desktop\Images_h25\onma.gif"/>
+        <local:ControlBar_z Grid.Row="0" 
+                            x:Name="ControlBar"
+                            BorderThickness="0"
+                            Height="38"
+                            Opacity="0"
+                            Visibility="Visible"
+                            Tag="{Binding Title,ElementName=vmain}" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseMove">
+                    <i:InvokeCommandAction 
+                        CommandParameter="{Binding ElementName=ControlBar}"
+                        Command="{Binding ShowControlBar}"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeave">
+                    <i:InvokeCommandAction Command="{Binding HideControlBar}" 
+                                            CommandParameter="{Binding ElementName=ControlBar}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </local:ControlBar_z>
+
+
+        <Grid Grid.Row="1" Panel.ZIndex="0" >
+            <!--gif:AnimationBehavior.SourceUri="C:\Users\Administrator\Desktop\Images_h25\onma.gif"-->
+            
             <Grid Margin="30">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -40,12 +72,12 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.Resources>
-                    <ControlTemplate TargetType="Button" x:Key="t">
+                    <ControlTemplate TargetType="Button" x:Key="templatebtn">
                         <Border  Background="{TemplateBinding Background}">
                         </Border>
                     </ControlTemplate>
                     <Style TargetType="Button">
-                        <Setter Property="Template" Value="{StaticResource t}"/>
+                        <Setter Property="Template" Value="{StaticResource templatebtn}"/>
                         <Setter Property="Margin" Value="10"/>
                         <Setter Property="BorderThickness" Value="0"/>
                         <Setter Property="Cursor" Value="Hand"/>
@@ -68,11 +100,16 @@
                     <Button.ToolTip>
                         <TextBlock Text="Đăng nhập dành cho khách hàng"/>
                     </Button.ToolTip>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenLoginClient}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </Button>
-                
-                <Button Grid.Column="1" Name="administration"
-                            Command="{Binding admin}"
-                            CommandParameter="{Binding ElementName=content}"
+
+                <Button Grid.Column="1" Name="OpenAdministrationWindow"
+                            Command="{Binding OpenWindowAdministration}"
+                            CommandParameter="{Binding ElementName=ContentMainWindow}"
                         Foreground="Black" >
                     <Button.ToolTip >
                         <TextBlock Text="Quản Lý Dịch Vụ"/>
@@ -81,7 +118,7 @@
                         <ImageBrush ImageSource="/Images/setting_no.png"/>
                     </Button.Background>
                 </Button>
-                
+
                 <Button Grid.Column="2" Name="information">
                     <Button.Background>
                         <ImageBrush ImageSource="/Images/compass.png"/>
@@ -92,7 +129,7 @@
                 </Button>
                 <!--___________________________________________-->
             </Grid>
-            <ContentControl x:Name="content" />
+            <ContentControl x:Name="ContentMainWindow" />
         </Grid>
 
     </Grid>

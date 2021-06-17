@@ -1,6 +1,4 @@
-C:\Users\Administrator\Desktop\h25\h25\bin\Release\h25.exe.config
 C:\Users\Administrator\Desktop\h25\h25\bin\Release\h25.exe
-C:\Users\Administrator\Desktop\h25\h25\bin\Release\h25.pdb
 C:\Users\Administrator\Desktop\h25\h25\bin\Release\MaterialDesignColors.dll
 C:\Users\Administrator\Desktop\h25\h25\bin\Release\MaterialDesignThemes.Wpf.dll
 C:\Users\Administrator\Desktop\h25\h25\bin\Release\Microsoft.Expression.Interactions.dll
@@ -20,8 +18,6 @@ C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\Vmain.g.cs
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\xcontrolBar.g.cs
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\App.g.cs
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\GeneratedInternalTypeHelper.g.cs
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25_MarkupCompile.cache
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25_MarkupCompile.lref
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\App.baml
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Base_z\libary.baml
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\Add.baml
@@ -31,13 +27,10 @@ C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\Login.baml
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\t.baml
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\Vmain.baml
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\xcontrolBar.baml
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25.g.resources
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25.Properties.Resources.resources
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25.csproj.GenerateResource.cache
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25.csproj.CopyComplete
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25.exe
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\h25.pdb
 C:\Users\Administrator\Desktop\h25\h25\bin\Release\BouncyCastle.Crypto.dll
 C:\Users\Administrator\Desktop\h25\h25\bin\Release\Google.Protobuf.dll
 C:\Users\Administrator\Desktop\h25\h25\bin\Release\K4os.Compression.LZ4.dll
@@ -71,7 +64,13 @@ C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\t1.baml
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\t2.baml
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\t3.g.cs
 C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\t3.baml
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\itemz.g.cs
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\itemz.baml
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\addContent.g.cs
-C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\addContent.baml
+C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\VItemz.g.cs
+C:\Users\Administrator\Desktop\h25\h25\obj\Release\Views\VItemz.baml
+C:\Users\Administrator\Desktop\h25\h25\bin\Release\leaf.exe.config
+C:\Users\Administrator\Desktop\h25\h25\bin\Release\leaf.exe
+C:\Users\Administrator\Desktop\h25\h25\bin\Release\leaf.pdb
+C:\Users\Administrator\Desktop\h25\h25\obj\Release\leaf_MarkupCompile.cache
+C:\Users\Administrator\Desktop\h25\h25\obj\Release\leaf_MarkupCompile.lref
+C:\Users\Administrator\Desktop\h25\h25\obj\Release\leaf.g.resources
+C:\Users\Administrator\Desktop\h25\h25\obj\Release\leaf.exe
+C:\Users\Administrator\Desktop\h25\h25\obj\Release\leaf.pdb

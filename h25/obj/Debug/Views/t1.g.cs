@@ -68,7 +68,7 @@ namespace h25.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/h25;component/views/t1.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/leaf;component/views/t1.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\Views\t1.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
